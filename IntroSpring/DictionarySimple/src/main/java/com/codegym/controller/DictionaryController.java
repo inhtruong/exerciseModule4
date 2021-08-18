@@ -1,5 +1,7 @@
 package com.codegym.controller;
 
+import com.codegym.service.DictionaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,9 @@ import java.util.Map;
 
 @Controller
 public class DictionaryController {
+    @Autowired
+    private DictionaryService dictionaryService;
+
     @GetMapping("/dictionary")
     public ModelAndView getDictionary() {
         ModelAndView modelAndView = new ModelAndView("dictionary");
@@ -20,25 +25,11 @@ public class DictionaryController {
     @PostMapping("/result")
     public ModelAndView getResult(@RequestParam("word") String word) {
         ModelAndView modelAndView = new ModelAndView("success");
-        String result = searchWord(word);
+        String result = dictionaryService.searchWord(word);
         modelAndView.addObject("result", result);
         return modelAndView;
     }
 
-    private String searchWord(String word) {
-        String result = "";
-        Map<String, String> dic = new HashMap<String, String>();
-        dic.put("computer","máy tính");
-        dic.put("smartphone","điện thoại thông minh");
-        dic.put("book","sách");
-        dic.put("pen","bút viết");
 
-        if(dic.containsKey(word)) {
-            result = dic.get(word);
-        } else {
-            result = "Từ nay hiện tại không có trong từ điển";
-        }
-        return result;
-    }
 }
 
