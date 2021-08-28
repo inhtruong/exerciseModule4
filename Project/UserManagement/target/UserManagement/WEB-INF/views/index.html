@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/dashboard :: head">
+</head>
+<body>
+<div class="be-wrapper be-fixed-sidebar">
+    <div th:replace="/dashboard :: navbar"></div>
+    <div th:replace="/dashboard :: left-sidebar"></div>
+    <div class="be-content">
+        <div class="page-head">
+            <h3 class="page-head-title">User Management</h3>
+        </div>
+
+        <div class="main-content container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                    <div class="card-header">
+                            <a th:href="@{/user/create}" class="btn btn-primary btn-space btn-lg">
+                                <span class="mdi mdi-account-add"></span> Add new user
+                            </a>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Balance</th>
+                                <th class="text-center">Deposit/Withdraw</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="row,rowStat : ${users}">
+                                <td th:text="${row.getId()}"></td>
+                                <td th:text="${row.getName()}"></td>
+                                <td th:text="${row.getEmail()}"></td>
+                                <td th:text="${row.getCountry()}"></td>
+<!--                                <td class="number" th:text="${row.getBalance()}"></td>-->
+                                <td class="text-right"><span th:text="${#numbers.formatDecimal(row.getBalance(), 0, 'COMMA', 1, 'POINT')}">10.00</span> $</td>
+                                <td class="text-center">
+                                    <a th:href="@{/user/{id}/deposit(id=${row.getId()})}">deposit</a>
+                                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                    <a th:href="@{/user/{id}/withdraw(id=${row.getId()})}">withdraw</a>
+                                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                                    <a th:href="@{/user/{id}/transfer(id=${row.getId()})}">transfer</a>
+                                </td>
+                                <td class="text-center">
+                                    <a th:href="@{/user/{id}/edit(id=${row.getId()})}" class="btn btn-primary" th:title="Edit">
+                                        <span class="mdi mdi-edit"></span>
+                                    </a>
+                                    <span>&nbsp;&nbsp;</span>
+                                    <a th:href="@{/user/{id}/delete(id=${row.getId()})}" class="btn btn-danger" th:title="Delete">
+                                        <span class="mdi mdi-delete"></span>
+                                    </a>
+                                    <span>&nbsp;&nbsp;</span>
+                                    <a th:href="@{/user/{id}/view(id=${row.getId()})}" class="btn btn-warning"  th:title="View">
+                                        <span class="mdi mdi-info"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="/layout :: footer"></footer>
+    </div>
+    <div th:replace="/dashboard :: right-sidebar"></div>
+</div>
+<div th:replace="/dashboard :: script"></div>
+</body>
+</html>

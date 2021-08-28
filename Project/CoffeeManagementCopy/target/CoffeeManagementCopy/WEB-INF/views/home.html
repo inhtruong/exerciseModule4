@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>Bills</h3>
+<p>
+    <a th:href="@{/bills/create}">
+        Add new bill
+    </a>
+</p>
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<table id = "table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Number Table</th>
+        <th>Floor</th>
+        <th>subPrice</th>
+        <th>fee</th>
+        <th>totalBill</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${bills}">
+        <td th:text="${row.getId()}"></td>
+        <td th:text="${row.getNumberTable()}"></td>
+        <td th:text="${row.getFloor()}"></td>
+        <td th:text="${row.getSubPrice()}"></td>
+        <td th:text="${row.getFee()}"></td>
+        <td th:text="${row.getTotalBill()}"></td>
+        <td><a th:href="@{/bills/edit/{id}(id=${row.getId()})}">edit</a></td>
+        <td><a th:href="@{/bills/delete/{id}(id=${row.getId()})}">delete</a></td>
+        <td><a th:href="@{/bills/view/{id}(id=${row.getId()})}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

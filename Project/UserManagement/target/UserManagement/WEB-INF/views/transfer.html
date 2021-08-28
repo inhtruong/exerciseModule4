@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="/layout :: head"></head>-->
+<head th:replace="/dashboard :: head"></head>
+<body>
+<div class="be-wrapper be-fixed-sidebar">
+    <!--  Begin Navbar-->
+    <div th:replace="/dashboard :: navbar"></div>
+    <!--  Navbar End-->
+
+    <!--  Begin Left-Sidebar-->
+    <div th:replace="/dashboard :: left-sidebar"></div>
+    <!--  Left-Sidebar-->
+
+    <div class="be-content">
+
+        <div class="main-content container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card card-border-color card-border-color-primary">
+                        <div class="card-header card-header-divider">Transfer</div>
+                        <div class="card-body">
+                            <form th:action="@{/user/save-transfer}" th:object="${transfer}"
+                                  method="POST" novalidate="novalidate">
+                                <input type="hidden" th:field="*{id}" name="id">
+                                <div class="row">
+                                    <div class="col-lg-4 form-group pt-2">
+                                        <label class="col-lg-12 pt-2">Sender</label>
+                                        <div class="col-lg-11 pt-2">
+                                            <label for="inputIDSender">User ID Sender</label>
+<!--                                            <input class="form-control" th:field="*{idSender}" type="hidden">-->
+                                            <input class="form-control" th:field="*{__${userSender.getId()}__}" id="inputIDSender" type="number">
+                                        </div>
+                                        <div class="col-lg-11 pt-2">
+                                            <label for="inputNameSender">Name Sender</label>
+                                            <input class="form-control" th:value="${userSender.getName()}" id="inputNameSender" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 form-group pt-2">
+                                        <label class="col-lg-12 pt-2">Receive</label>
+                                        <div class="col-lg-11 pt-2">
+                                            <label for="inputIDReceive">User ID Receive</label>
+<!--                                            <input class="form-control" th:field="*{idReceive}" id="inputIDReceive" type="text">-->
+                                                <select class="form-control" th:field="*{idReceive}" id="inputIDReceive">
+                                                    <option th:each="row,rowStat : ${listUser}"
+                                                            th:value="${row.getId()}" th:text="${row.getId()}"></option>
+                                                </select>
+                                        </div>
+<!--                                        <div class="col-lg-11 pt-2">-->
+<!--                                            <label for="inputNameReceive">NameReceive</label>-->
+<!--                                            <input class="form-control" th:value="${}" id="inputNameReceive" type="email">-->
+<!--                                        </div>-->
+                                        <div class="col-lg-11 pt-2">
+                                            <label for="inputAmountReceive">Amount Receive</label>
+                                            <input class="form-control" th:field="*{amountReceive}" oninput="calculatorFee()" id="inputAmountReceive" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 form-group pt-2">
+                                        <label class="col-lg-12 pt-2">Service Charge</label>
+                                        <div class="col-lg-11 pt-2">
+                                            <label for="inputFeesPercent">Fees</label>
+<!--                                            <input class="form-control" th:field="*{feesPercent}" type="hidden">-->
+                                            <input class="form-control" th:field="*{feesPercent}" value="5" id="inputFeesPercent" type="number">
+                                        </div>
+                                        <div class="col-lg-11 pt-2">
+                                            <label for="inputFeesAmount">Fees Amount</label>
+                                            <input class="form-control" th:field="*{feesAmount}" id="inputFeesAmount" type="number">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row pt-3">
+                                    <div class="col-lg-6 pb-4 pb-lg-0">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="text-right">
+                                            <button class="btn btn-space btn-primary" type="submit">Submit</button>
+                                            <button class="btn btn-space btn-secondary">
+                                                <a th:href="@{/user}">Back to user list</a>
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer th:replace="/layout :: footer"></footer>
+        </div>
+    </div>
+</div>
+<script>
+    function calculatorFee() {
+        let salary = parseFloat(document.getElementById("inputAmountReceive").value);
+        if (isNaN(salary)) {
+            document.getElementById("inputFeesAmount").value = 0;
+        } else {
+            let feeAmount = salary * 5 /100;
+            document.getElementById("inputFeesAmount").value = feeAmount;
+        }
+    }
+</script>
+<div th:replace="/dashboard :: script"></div>
+</body>
+</html>

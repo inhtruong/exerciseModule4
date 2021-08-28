@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<head th:replace="/dashboard :: head"></head>
+<body>
+<!--<h3>View user</h3>-->
+<!--<p>-->
+<!--    <a th:href="@{/user}">-->
+<!--        Back to user list-->
+<!--    </a>-->
+<!--</p>-->
+<!--<div id="detail">-->
+<!--    <div class="cusdetail">-->
+<!--        <label>Name:</label>-->
+<!--        <label th:text="${user.name}"></label>-->
+<!--    </div>-->
+<!--    <div class="cusdetail">-->
+<!--        <label>Email:</label>-->
+<!--        <label th:text="${user.email}"></label>-->
+<!--    </div>-->
+<!--    <div class="cusdetail">-->
+<!--        <label>Country:</label>-->
+<!--        <label th:text="${user.country}"></label>-->
+<!--    </div>-->
+<!--    <div class="cusdetail">-->
+<!--        <label>Balance:</label>-->
+<!--        <label th:text="${user.balance}"></label>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<footer th:replace="/layout :: footer"></footer>-->
+
+<div class="be-wrapper be-fixed-sidebar">
+    <!--  Begin Navbar-->
+    <div th:replace="/dashboard :: navbar"></div>
+    <!--  Navbar End-->
+
+    <!--  Begin Left-Sidebar-->
+    <div th:replace="/dashboard :: left-sidebar"></div>
+    <!--  Left-Sidebar-->
+
+    <div class="be-content">
+        <div class="main-content container-fluid">
+            <div class="user-profile">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="user-display">
+                            <div class="user-display-bg"><img th:src="@{/resources/assets/img/user-profile-display.png}" alt="Profile Background"></div>
+                            <div class="user-display-bottom">
+                                <div class="user-display-avatar"><img th:src="@{/resources/assets/img/avatar-150.png}" alt="Avatar"></div>
+                                <div class="user-display-info">
+                                    <div class="name"><label th:text="${user.name}"></label></div>
+<!--                                    <div class="nick"><span class="mdi mdi-account"></span> KDonny</div>-->
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-info-list card">
+                            <div class="card-header card-header-divider">About Me</div>
+                            <div class="card-body">
+                                <table class="no-border no-strip skills">
+                                    <tbody class="no-border-x no-border-y">
+                                    <tr>
+                                        <td class="icon"><span class="mdi mdi-email"></span></td>
+                                        <td class="item">Email<span class="icon s7-portfolio"></span></td>
+                                        <td><label th:text="${user.email}"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon"><span class="mdi mdi-cake"></span></td>
+                                        <td class="item">Birthday<span class="icon s7-gift"></span></td>
+                                        <td>16 September 1989</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon"><span class="mdi mdi-smartphone-android"></span></td>
+                                        <td class="item">Mobile<span class="icon s7-phone"></span></td>
+                                        <td>(999) 999-9999</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon"><span class="mdi mdi-globe-alt"></span></td>
+                                        <td class="item">Country<span class="icon s7-map-marker"></span></td>
+                                        <td><label th:text="${user.country}"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="icon"><span class="mdi mdi-balance-wallet"></span></td>
+                                        <td class="item">Balance<span class="icon s7-global"></span></td>
+                                        <td><label th:text="${user.balance}"></label></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-space btn-secondary">
+                                <a th:href="@{/user}">Back to user list</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
